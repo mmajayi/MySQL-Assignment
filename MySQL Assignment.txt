@@ -4,11 +4,11 @@ select distinct count(district) from city where countrycode = 'USA'; (The count)
 Answer 274 
 
 2.Find out the population and life expectancy for people in Argentina.
-select population, lifeexpectancy from country where localname = 'Argentina';
+SELECT name, region, population, lifeexpectancy FROM country WHERE localname = 'Argentina';
 Answer population 37032000	life expectancy75.1
 
 3.Using IS NOT NULL, ORDER BY, and LIMIT, which country has the highest life expectancy?
-SELECT LifeExpectancy from country WHERE LifeExpectancy is not null ORDER BY LifeExpectancy desc limit 1;
+SELECT name, LifeExpectancy from country WHERE LifeExpectancy is not null ORDER BY LifeExpectancy desc limit 1;
 Answer 83.5
 
 4.Using JOIN ... ON, find the capital city of Spain.
@@ -32,7 +32,7 @@ WHERE Country.name = 'China';
 
 
 
-
+Sakila Q4, Q11 & 12 (HAVING), Q13, Q16
 
 
 Sakila
@@ -41,16 +41,16 @@ USE sakila;
 SELECT * FROM sakila.actor;
 
 2. Find the surname of the actor with the forename 'John'.
-SELECT last_name  from actor where first_name = 'John';
+SELECT first_name AS Forename, last_name  from actor where first_name = 'John';
 
 3. Find all actors with surname 'Neeson'.
-SELECT last_name from actor where last_name = 'Neeson';
+SELECT first_name, last_name from actor where last_name = 'Neeson';
 
 4. Find all actors with ID numbers divisible by 10.
 SELECT * FROM actor where actor_id/10;
 
 5. What is the description of the movie with an ID of 100?
-SELECT * FROM film where film_id = '100';
+SELECT description FROM film where film_id = '100';
 Description:'A Beautiful Drama of a Dentist And a Composer who must Battle a Sumo Wrestler in The First Manned Space Station'
 
 6. Find every R-rated movie.
@@ -66,18 +66,19 @@ SELECT * FROM film order by length asc limit 10;
 SELECT title, length FROM film  order by length DESC ;
 
 10. Find all movies that have deleted scenes.
-SELECT special_features FROM film WHERE special_features LIKE '%DELETED SCENES%'; 
+SELECT title, special_features FROM film WHERE special_features LIKE '%DELETED SCENES%'; 
 
 11. Using HAVING, reverse-alphabetically list the last names that are not repeated.
 
 
-12.
+12. Using HAVING, list the last names that appear more than once, from highest to lowest frequency.
+
 
 13.Which actor has appeared in the most films?
 
 
 14.When is 'Academy Dinosaur' due?
-SELECT return_date FROM rental WHERE rental_id = '1';
+SELECT rental_id, rental_date FROM rental WHERE rental_id = '1';
 
 15.What is the average runtime of all films?
 SELECT avg(length) FROM sakila.film where length;
@@ -87,7 +88,7 @@ SELECT avg(length) FROM sakila.film where length;
 
 
 17. List all movies featuring a robot.
-SELECT * FROM sakila.film where description LIKE '%robot%';
+SELECT film_id, title, description FROM sakila.film where description LIKE '%robot%';
 
 
 18. How many movies were released in 2010?
@@ -101,9 +102,6 @@ SELECT * FROM sakila.staff WHERE staff_id = '2';
 
 21.List all the movies that Fred Costner has appeared in.
 SELECT * FROM sakila.film_actor WHERE actor_id = '16';
-OR
-SELECT * FROM film_actor 
-JOIN actor ON film_actor.actor_id = '16';
 
 22.How many distinct countries are there?
 List of Distinct country names - SELECT DISTINCT country FROM sakila.country ;
@@ -112,6 +110,7 @@ Number of distinct countries - SELECT DISTINCT count(country) FROM sakila.countr
 
 
 23.List the name of every language in reverse-alphabetical order.
+SELECT * FROM language ORDER BY name DESC;
 
 24.List the full names of every actor whose surname ends with '-son' in alphabetical order by their forename.
 SELECT first_name AS Forename, last_name FROM sakila.actor WHERE last_name LIKE '%son%' ORDER BY first_name ASC;
